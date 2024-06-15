@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/db";
 import User from "./models/user.model";
-import authRoutes from "./routes/authRoutes";
+import authRoutes from "./routes/auth.routes";
 
 // import postRoutes from "./routes/postRoutes";
 // import commentRoutes from "./routes/commentRoutes";

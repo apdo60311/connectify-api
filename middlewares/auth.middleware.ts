@@ -4,11 +4,9 @@ import User from "../models/user.model";
 import { Request, Response, NextFunction } from "express";
 import { errorResponse } from "../utils/response/response.util";
 import logger from "../utils/logger";
+import { UserRequest } from "../entities/request.entity";
 
-export interface UserRequest extends Request {
-    token: JwtPayload | String;
-    user: Object;
-}
+
 
 export const authorization = async (req: Request, res: Response, next: NextFunction) => {
     let token = req.headers.authorization;
