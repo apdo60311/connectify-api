@@ -4,6 +4,15 @@ import Comment from "../models/comment.model";
 import { Request, Response } from "express";
 import { errorResponse, successResponse } from "../utils/response/response.util";
 
+/**
+ * handles adding new comment to a post
+ *
+ * @param {Request} req 
+ * @param {mongoose.ObjectId} req.postId - the post id to add comment to
+ * @param {String} req.content
+ * @param {Response} res
+ * @returns {Promise<Response>} A promise that resolves with the HTTP response.
+ */
 export const addComment = async (req: Request, res: Response) => {
     const { postId, content } = req.body;
 
