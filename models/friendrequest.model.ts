@@ -1,9 +1,10 @@
 import mongoose, { Document } from "mongoose";
 
+
 interface IFriendRequest extends Document {
-    requester: mongoose.Schema.Types.ObjectId,
-    recipient: mongoose.Schema.Types.ObjectId,
-    status: string,
+    requester: mongoose.Schema.Types.ObjectId;
+    recipient: mongoose.Schema.Types.ObjectId;
+    status: "pending" | "accepted" | "rejected";
 }
 
 const friendRequestSchema = new mongoose.Schema<IFriendRequest>({

@@ -4,23 +4,28 @@ interface IComment extends Document {
     post: Schema.Types.ObjectId;
     user: Schema.Types.ObjectId;
     content: string;
+    parentComment: Schema.Types.ObjectId;
 }
 
 const commentSchema = new Schema<IComment>(
     {
         post: {
-            type: Schema.Types.ObjectId,
-            ref: "Post",
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Post',
             required: true,
         },
         user: {
-            type: Schema.Types.ObjectId,
-            ref: "User",
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
             required: true,
         },
         content: {
             type: String,
             required: true,
+        },
+        parentComment: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Comment',
         },
     },
     { timestamps: true }

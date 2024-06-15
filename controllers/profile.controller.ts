@@ -26,9 +26,9 @@ export const getProfile = async (req: Request, res: Response) => {
 };
 
 export const updateProfile = async (req: Request, res: Response) => {
-    const { bio, location, birthdate } = req.body;
+    const { bio, location, birthdate, interests, education, work, profilePicture, coverPhoto } = req.body;
 
-    if (!bio && !location && !birthdate) {
+    if (!bio && !location && !birthdate && !interests && !education && !work && !profilePicture && !coverPhoto) {
         return res.status(400).json(errorResponse(400, "Incomplete Data", "Nothing to change!"));
     }
 
@@ -39,7 +39,11 @@ export const updateProfile = async (req: Request, res: Response) => {
             profile.bio = bio || profile.bio;
             profile.location = location || profile.location;
             profile.birthdate = birthdate || profile.birthdate;
-
+            profile.interests = interests || profile.interests;
+            profile.education = education || profile.education;
+            profile.work = work || profile.work;
+            profile.profilePicture = profilePicture || profile.profilePicture;
+            profile.coverPhoto = coverPhoto || profile.coverPhoto;
             const updatedProfile = await profile.save();
 
             return res.status(200).json(successResponse(200, updatedProfile, "Profile updated successfully"));

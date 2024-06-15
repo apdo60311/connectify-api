@@ -6,6 +6,10 @@ import postRoutes from "./routes/post.routes";
 import commentRoutes from "./routes/comment.routes";
 import friendRequestRoutes from "./routes/friendrequest.routes";
 import profileRoutes from "./routes/profile.routes";
+import notificationRoutes from "./routes/notification.routes";
+import userRoutes from "./routes/user.routes";
+import likeRoutes from "./routes/like.routes";
+
 // import errorHandler from "./middlewares/errorHandler";
 
 dotenv.config();
@@ -22,6 +26,9 @@ app.use('/api/posts', postRoutes);
 app.use('/api/comments', commentRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/friend-request', friendRequestRoutes)
+app.use('/api/notifications', notificationRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/likes', likeRoutes);
 
 const PORT = process.env.PORT || 5000;
 const url: string = `http://localhost:${PORT}`;

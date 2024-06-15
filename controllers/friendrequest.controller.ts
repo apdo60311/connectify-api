@@ -1,7 +1,7 @@
 import { UserRequest } from "../entities/request.entity";
 import FriendRequest from "../models/friendrequest.model";
 import User from "../models/user.model";
-
+import { createNotification } from "../controllers/notification.controller"
 import { Request, Response } from "express";
 import { errorResponse, successResponse } from "../utils/response/response.util";
 
@@ -25,6 +25,7 @@ export const sendFriendRequest = async (req: Request, res: Response) => {
 
         await friendRequest.save();
 
+        await createNotification(recipientId, 'friend_request', `${(req as UserRequest).user.name} sent you a friend request`);
         return res.status(200).json(successResponse(200, friendRequest, "Friend request sent"));
 
     } catch (error) {
@@ -55,6 +56,11 @@ export const respondToFriendRequest = async (req: Request, res: Response) => {
 
         friendRequest.status = status;
         await friendRequest.save();
+
+        const requesterId: string = Object(friendRequest.requester).toString();
+
+        await createNotification(requesterId, 'friend_request', `${(req as UserRequest).user.name} ${status} your friend request`);
+
         // TODO: add user to friends
         return res.status(200).json(successResponse(200, friendRequest, "Friend request responded"));
 
