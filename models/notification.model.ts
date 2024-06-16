@@ -1,11 +1,7 @@
 import mongoose, { Schema, model } from "mongoose";
+import { INotification } from "../entities/notification.entity";
 
-export interface INotification extends mongoose.Document {
-    user: mongoose.Types.ObjectId;
-    type: "friend_request" | "post_like" | "comment" | "mention" | "other";
-    message: string;
-    read: boolean;
-}
+
 
 const notificationSchema = new mongoose.Schema<INotification>(
     {

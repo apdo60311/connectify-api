@@ -1,16 +1,6 @@
 import mongoose, { Schema, model, Document } from "mongoose";
+import { IProfile } from "../entities/profile.entity";
 
-interface IProfile extends Document {
-    user: mongoose.Schema.Types.ObjectId;
-    bio: string;
-    location: string;
-    birthdate: Date;
-    interests: String;
-    education: String;
-    work: String;
-    profilePicture: String;
-    coverPhoto: String;
-}
 
 const profileSchema = new mongoose.Schema<IProfile>(
     {

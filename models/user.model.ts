@@ -1,14 +1,7 @@
 import mongoose, { Document, Schema } from "mongoose";
 import bcrypt from "bcryptjs";
+import { IUser } from "../entities/user.entity";
 
-interface IUser extends Document {
-  name: string;
-  email: string;
-  password: string;
-  createdAt: Date;
-  updatedAt: Date;
-  matchPassword: (enteredPassword: string) => Promise<boolean>;
-}
 
 const userSchema: Schema<IUser> = new mongoose.Schema({
   name: { type: String, required: true },

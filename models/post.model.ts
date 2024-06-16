@@ -1,10 +1,5 @@
 import mongoose, { Schema, model } from "mongoose";
-
-interface IPost {
-    user: mongoose.Schema.Types.ObjectId;
-    content: string;
-    media: [String];
-}
+import { IPost } from "../entities/post.entity";
 
 const postSchema = new Schema<IPost>(
     {

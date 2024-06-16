@@ -9,6 +9,7 @@ import profileRoutes from "./routes/profile.routes";
 import notificationRoutes from "./routes/notification.routes";
 import userRoutes from "./routes/user.routes";
 import likeRoutes from "./routes/like.routes";
+import messageRoutes from "./routes/message.routes";
 
 // import errorHandler from "./middlewares/errorHandler";
 
@@ -29,7 +30,7 @@ app.use('/api/friend-request', friendRequestRoutes)
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/likes', likeRoutes);
-
+app.use('/api/messages', messageRoutes);
 const PORT = process.env.PORT || 5000;
 const url: string = `http://localhost:${PORT}`;
 app.listen(PORT, () => { console.log(`Server running on port ${PORT}`); console.log(`follow this url ${url}`); });

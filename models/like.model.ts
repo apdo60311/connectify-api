@@ -1,10 +1,6 @@
 import mongoose, { Document } from "mongoose";
+import { ILike } from "../entities/like.entity";
 
-interface ILike extends Document {
-    user: mongoose.Schema.Types.ObjectId;
-    post: mongoose.Schema.Types.ObjectId;
-    type: "like" | "love" | "angery";
-}
 
 const likeSchema = new mongoose.Schema<ILike>(
     {

@@ -1,9 +1,6 @@
 import mongoose, { Schema, model } from "mongoose";
+import { IFriend } from "../entities/friend.entity";
 
-interface IFriend {
-    user1: mongoose.Schema.Types.ObjectId;
-    user2: mongoose.Schema.Types.ObjectId;
-}
 
 const friendSchema = new Schema<IFriend>(
     {

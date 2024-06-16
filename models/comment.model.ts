@@ -1,11 +1,5 @@
 import mongoose, { Schema, model, Document } from "mongoose";
-
-interface IComment extends Document {
-    post: Schema.Types.ObjectId;
-    user: Schema.Types.ObjectId;
-    content: string;
-    parentComment: Schema.Types.ObjectId;
-}
+import { IComment } from "../entities/comment.entity";
 
 const commentSchema = new Schema<IComment>(
     {
