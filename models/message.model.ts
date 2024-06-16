@@ -21,6 +21,10 @@ const messageSchema = new mongoose.Schema<IMessage>(
             type: Boolean,
             default: false,
         },
+        typing: {
+            type: Boolean,
+            default: false,
+        },
     },
     { timestamps: true }
 );

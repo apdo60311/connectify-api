@@ -10,6 +10,8 @@ import notificationRoutes from "./routes/notification.routes";
 import userRoutes from "./routes/user.routes";
 import likeRoutes from "./routes/like.routes";
 import messageRoutes from "./routes/message.routes";
+import feedRoutes from "./routes/feed.routes";
+import { loggerMiddleware } from "./middlewares/logging.middleware";
 
 // import errorHandler from "./middlewares/errorHandler";
 
@@ -20,6 +22,7 @@ connectDB().then(async (connection) => { });
 const app = express();
 
 app.use(express.json());
+app.use(loggerMiddleware);
 // app.use(errorHandler);
 
 app.use('/api/auth', authRoutes);
@@ -31,6 +34,8 @@ app.use('/api/notifications', notificationRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/likes', likeRoutes);
 app.use('/api/messages', messageRoutes);
+app.use('/api/feed', feedRoutes);
+
 const PORT = process.env.PORT || 5000;
 const url: string = `http://localhost:${PORT}`;
 app.listen(PORT, () => { console.log(`Server running on port ${PORT}`); console.log(`follow this url ${url}`); });

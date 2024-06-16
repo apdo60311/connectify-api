@@ -5,6 +5,7 @@ export interface IMessage extends Document {
     receiver: mongoose.Schema.Types.ObjectId;
     content: string;
     read: boolean;
+    typing: boolean;
 }
 
 export interface IGroupMessage extends Document {

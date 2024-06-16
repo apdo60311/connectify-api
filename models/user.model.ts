@@ -7,6 +7,8 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  isAdmin: { type: Boolean, default: false },
+  isBanned: { type: Boolean, default: false },
 }, { timestamps: true });
 
 userSchema.methods.matchPassword = async function (enteredPassword: string) {

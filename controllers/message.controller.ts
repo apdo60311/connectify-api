@@ -7,7 +7,6 @@ import { errorResponse, successResponse } from "../utils/response/response.util"
 import { IGroupMessage, IMessage } from "../entities/message.entity";
 import mongoose from "mongoose";
 
-
 export const sendMessage = async (req: Request, res: Response) => {
     const { receiverId, content } = req.body;
 
@@ -63,6 +62,37 @@ export const getMessages = async (req: Request, res: Response) => {
     } catch (error) {
         return res.status(500).json(errorResponse(500, `${error}`, "error while getting messages"))
     }
+};
+
+export const markAsTyping = async (req: Request, res: Response) => {
+    const { messageId, typing } = req.body;
+
+    if (!messageId && !typing) {
+        return res.status(400).json(errorResponse(400, "Incomplete data", "messageId and typing are required"));
+    }
+
+
+    try {
+        const message = await Message.findById(messageId);
+        if (!message) {
+            return res.status(404).json(errorResponse(404, "Message not found", "message not found"));
+        }
+
+        const userId = (req as UserRequest).user.id;
+
+        if (userId == message.sender.toString()) {
+            message.typing = typing;
+            await message.save();
+
+            return res.status(200).json(successResponse(200, message, "message updated successfully"));
+        }
+
+        return res.status(400).json(errorResponse(400, "Update Error", "message state cannot be updated"))
+
+    } catch (error) {
+        return res.status(500).json(errorResponse(500, `${error}`, "error while updating message"))
+    }
+
 };
 
 export const createGroupChat = async (req: Request, res: Response) => {
