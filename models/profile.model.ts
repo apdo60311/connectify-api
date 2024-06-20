@@ -15,6 +15,9 @@ const profileSchema = new mongoose.Schema<IProfile>(
         location: {
             type: String,
         },
+        website: {
+            type: String,
+        },
         birthdate: {
             type: Date,
         },

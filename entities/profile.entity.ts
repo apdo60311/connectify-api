@@ -4,6 +4,7 @@ export interface IProfile extends Document {
     user: mongoose.Schema.Types.ObjectId;
     bio: string;
     location: string;
+    website: string;
     birthdate: Date;
     interests: String;
     education: String;

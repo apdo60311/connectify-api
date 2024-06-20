@@ -12,6 +12,7 @@ import likeRoutes from "./routes/like.routes";
 import messageRoutes from "./routes/message.routes";
 import feedRoutes from "./routes/feed.routes";
 import { loggerMiddleware } from "./middlewares/logging.middleware";
+import { rateLimiterMiddleware } from "./middlewares/ratelimiter.middleware";
 
 // import errorHandler from "./middlewares/errorHandler";
 
@@ -25,6 +26,7 @@ app.use(express.json());
 app.use(loggerMiddleware);
 // app.use(errorHandler);
 
+app.use('/api/', rateLimiterMiddleware);
 app.use('/api/auth', authRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/comments', commentRoutes);

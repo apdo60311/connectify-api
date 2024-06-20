@@ -1,3 +1,4 @@
+import axios from "axios";
 import User from "../models/user.model"
 import { errorResponse, successResponse } from "../utils/response/response.util";
 import generateToken from '../utils/tokenGenerator';
@@ -5,7 +6,7 @@ import { Request, Response } from "express";
 
 export const registerUser = async (req: Request, res: Response) => {
     try {
-        const { name, email, password } = req.body;
+        const { name, email, password, bio, location, birthdate, interests, education, website, work, profilePicture } = req.body;
 
         if (!name || !email || !password) {
             return res.status(400).json(errorResponse(400, "Registeration error", 'Invalid user data'));
@@ -17,14 +18,27 @@ export const registerUser = async (req: Request, res: Response) => {
             return res.status(400).json(errorResponse(400, "Registeration error", 'User already registered'));
         }
 
-        const user = await User.create({
+        const user = new User({
             name,
             email,
             password,
-        });
+        })
 
-        if (user) {
+        const savedUser = await user.save();
+
+        if (savedUser) {
             const userId: string = Object(user._id).toString();
+            axios.post(`/api/profile/${req.params.userId}`, {
+                bio,
+                location,
+                birthdate,
+                interests,
+                education,
+                website,
+                work,
+                profilePicture,
+            });
+
             res.status(201).json(successResponse(201, {
                 _id: user._id,
                 name: user.name,
