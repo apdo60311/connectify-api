@@ -2,20 +2,38 @@ import { Request, Response } from "express";
 import Post from "../models/post.model";
 import { UserRequest } from "../entities/request.entity";
 import { errorResponse, successResponse } from "../utils/response/response.util";
+import { extractMentions } from "../utils/extractMentions.utilty";
+import { Multer } from "multer";
+import { uploadPostMediaAsRowMulterfile, uploadProfilePicAsMulterfile } from "../utils/storage.utils";
 
 export const createPost = async (req: Request, res: Response) => {
-    const { content, media } = req.body;
+    const { content } = req.body;
 
     if (!content) {
         return res.status(400).json(errorResponse(400, "Create Post Error", "Content is required"));
     }
 
+    const mentions = await extractMentions(content);
+
     try {
         const post = new Post({
             user: (req as UserRequest).user.id,
             content,
-            media,
+            mentions,
         });
+
+        const files: Express.Multer.File[] = req.files as Express.Multer.File[];
+
+        let media: string[] = [];
+
+        if (files) {
+            for (const file of files) {
+                const profilePicUrl = await uploadPostMediaAsRowMulterfile(file, post.id);
+                media.push(profilePicUrl);
+            }
+        }
+
+        post.media = media;
 
         const createdPost = await post.save();
 

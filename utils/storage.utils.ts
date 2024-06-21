@@ -1,4 +1,9 @@
 import { FirebaseStorage, getDownloadURL, ref, StorageReference, StringFormat, uploadBytes, UploadResult, uploadString, deleteObject } from "firebase/storage";
+import { storage } from "../config/firbase.config";
+import { Request } from "express";
+import { UserRequest } from "../entities/request.entity";
+import uuidv4 from "uuidv4"
+
 
 
 /**
@@ -35,6 +40,20 @@ export const uploadMulterFile = (ref: StorageReference, file: Express.Multer.Fil
         return getDownloadURL(result.ref).then((downloadURL) => downloadURL);
     })
 }
+
+
+export const uploadProfilePicAsMulterfile = async (req: Request) => {
+    const ref = buildStorageReference(storage, 'profileImages', `PROFILEPIC-${(req as UserRequest).user.id}.png`);
+    const coverPicUrl = await uploadMulterFile(ref, req.file!);
+    return coverPicUrl;
+}
+
+export const uploadPostMediaAsRowMulterfile = async (file: Express.Multer.File, postId: string) => {
+    const ref = buildStorageReference(storage, 'postImages', `IMAGEPIC-${postId}-${uuidv4.uuid()}.png`);
+    const postImage = await uploadMulterFile(ref, file);
+    return postImage;
+}
+
 
 /**
  * Uploads a file as string to a storage reference and returns the download URL

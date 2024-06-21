@@ -5,4 +5,5 @@ export interface IComment extends Document {
     user: Schema.Types.ObjectId;
     content: string;
     parentComment: Schema.Types.ObjectId;
+    mentions: Schema.Types.ObjectId[];
 }

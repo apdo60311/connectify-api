@@ -16,7 +16,13 @@ const postSchema = new Schema<IPost>(
             {
                 type: String,
             }
-        ]
+        ],
+        mentions: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'User',
+            }
+        ],
     },
     { timestamps: true }
 );

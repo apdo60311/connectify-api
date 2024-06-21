@@ -5,7 +5,7 @@ import User from "../models/user.model";
 import { Request, Response } from "express";
 import { errorResponse, successResponse } from "../utils/response/response.util";
 import { storage } from "../config/firbase.config"
-import { buildStorageReference, deleteFile, uploadFile, uploadFromStringFormat, uploadMulterFile } from "../utils/storage.utils"
+import { buildStorageReference, deleteFile, uploadFile, uploadFromStringFormat, uploadMulterFile, uploadProfilePicAsMulterfile } from "../utils/storage.utils"
 import mongoose from "mongoose";
 
 
@@ -128,8 +128,3 @@ export const deleteProfilePicture = async (userId: string) => {
 
 export default { getProfile, updateProfile };
 
-async function uploadProfilePicAsMulterfile(req: Request) {
-    const ref = buildStorageReference(storage, 'profileImages', `PROFILEPIC-${(req as UserRequest).user.id}.png`);
-    const coverPicUrl = await uploadMulterFile(ref, req.file!);
-    return coverPicUrl;
-}
