@@ -13,6 +13,8 @@ import messageRoutes from "./routes/message.routes";
 import feedRoutes from "./routes/feed.routes";
 import { loggerMiddleware } from "./middlewares/logging.middleware";
 import { rateLimiterMiddleware } from "./middlewares/ratelimiter.middleware";
+import reportRoutes from "./routes/report.routes";
+import privacyRoutes from "./routes/privacy.routes";
 
 // import errorHandler from "./middlewares/errorHandler";
 
@@ -37,6 +39,8 @@ app.use('/api/users', userRoutes);
 app.use('/api/reactions', reactionsRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/api/feed', feedRoutes);
+app.use('/api/reports', reportRoutes);
+app.use('/api/privacy', privacyRoutes);
 
 const PORT = process.env.PORT || 5000;
 const url: string = `http://localhost:${PORT}`;
