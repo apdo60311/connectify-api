@@ -1,10 +1,17 @@
 import axios from "axios";
 import User from "../models/user.model"
 import { errorResponse, successResponse } from "../utils/response/response.util";
+import { body, validationResult } from 'express-validator';
 import generateToken from '../utils/tokenGenerator';
 import { Request, Response } from "express";
 
 export const registerUser = async (req: Request, res: Response) => {
+    const validationErrors = validationResult(req);
+
+    if (validationErrors) {
+        return res.status(400).json(errorResponse(400, 'Validation failed', validationErrors.array().toString()));
+    }
+
     try {
         const { name, email, password, bio, location, birthdate, interests, education, website, work, profilePicture } = req.body;
 
@@ -86,5 +93,58 @@ export const loginUser = async (req: Request, res: Response) => {
         return res.status(500).json(errorResponse(500, "Login error", `${error}`));
     }
 };
+
+
+export const validateRegisterUser = [
+    body('name')
+        .not()
+        .isEmpty()
+        .withMessage('Name is required')
+        .trim()
+        .escape(),
+    body('email')
+        .isEmail()
+        .withMessage('Email is invalid')
+        .trim()
+        .normalizeEmail(),
+    body('password')
+        .isLength({ min: 6 })
+        .withMessage('Password must be at least 6 characters long'),
+    body('bio')
+        .optional()
+        .isString()
+        .trim()
+        .escape(),
+    body('location')
+        .optional()
+        .isString()
+        .trim()
+        .escape(),
+    body('website')
+        .optional()
+        .isURL()
+        .trim(),
+    body("birthdate")
+        .optional()
+        .isDate()
+        .withMessage("Birthdate must be a valid date"),
+    body("interests")
+        .optional()
+        .isArray()
+        .withMessage("Interests must be an array"),
+    body("education")
+        .optional()
+        .isArray()
+        .withMessage("Education must be an array"),
+    body("work")
+        .optional()
+        .isArray()
+        .withMessage("Work must be an array"),
+    body("profilePicture")
+        .optional()
+        .isURL()
+        .withMessage("Profile picture must be a valid URL"),
+
+];
 
 export default { registerUser, loginUser }

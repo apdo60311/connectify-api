@@ -22,9 +22,9 @@ const profileSchema = new mongoose.Schema<IProfile>(
             type: Date,
         },
         interests: {
-            type: String,
+            type: [String],
         },
-        education: { type: String, },
+        education: { type: [String], },
         work: { type: String, },
         profilePicture: { type: String, },
         coverPhoto: { type: String, },

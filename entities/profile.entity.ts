@@ -6,8 +6,8 @@ export interface IProfile extends Document {
     location: string;
     website: string;
     birthdate: Date;
-    interests: String;
-    education: String;
+    interests: String[];
+    education: String[];
     work: String;
     profilePicture: String;
     coverPhoto: String;
