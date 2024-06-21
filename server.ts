@@ -8,7 +8,7 @@ import friendRequestRoutes from "./routes/friendrequest.routes";
 import profileRoutes from "./routes/profile.routes";
 import notificationRoutes from "./routes/notification.routes";
 import userRoutes from "./routes/user.routes";
-import likeRoutes from "./routes/like.routes";
+import likeRoutes from "./routes/reaction.routes";
 import messageRoutes from "./routes/message.routes";
 import feedRoutes from "./routes/feed.routes";
 import { loggerMiddleware } from "./middlewares/logging.middleware";

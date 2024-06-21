@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
-import Notification, { INotification } from "../models/notification.model";
+import Notification from "../models/notification.model";
 import { UserRequest } from "../entities/request.entity";
 import { errorResponse, successResponse } from "../utils/response/response.util";
+import { INotification } from "../entities/notification.entity";
 
 export const createNotification = async (
     userId: string,
