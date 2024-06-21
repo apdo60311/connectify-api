@@ -8,7 +8,7 @@ import friendRequestRoutes from "./routes/friendrequest.routes";
 import profileRoutes from "./routes/profile.routes";
 import notificationRoutes from "./routes/notification.routes";
 import userRoutes from "./routes/user.routes";
-import likeRoutes from "./routes/reaction.routes";
+import reactionsRoutes from "./routes/reaction.routes";
 import messageRoutes from "./routes/message.routes";
 import feedRoutes from "./routes/feed.routes";
 import { loggerMiddleware } from "./middlewares/logging.middleware";
@@ -34,7 +34,7 @@ app.use('/api/profile', profileRoutes);
 app.use('/api/friend-request', friendRequestRoutes)
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/users', userRoutes);
-app.use('/api/likes', likeRoutes);
+app.use('/api/reactions', reactionsRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/api/feed', feedRoutes);
 
