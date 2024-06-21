@@ -11,10 +11,10 @@ import userRoutes from "./routes/user.routes";
 import reactionsRoutes from "./routes/reaction.routes";
 import messageRoutes from "./routes/message.routes";
 import feedRoutes from "./routes/feed.routes";
-import { loggerMiddleware } from "./middlewares/logging.middleware";
-import { rateLimiterMiddleware } from "./middlewares/ratelimiter.middleware";
 import reportRoutes from "./routes/report.routes";
 import privacyRoutes from "./routes/privacy.routes";
+import { loggerMiddleware } from "./middlewares/logging.middleware";
+import { rateLimiterMiddleware } from "./middlewares/ratelimiter.middleware";
 
 // import errorHandler from "./middlewares/errorHandler";
 
