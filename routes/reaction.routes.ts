@@ -1,10 +1,10 @@
 import express from 'express';
 
 import { authorization } from '../middlewares/auth.middleware'
-import { likePost } from "../controllers/like.controller"
+import { addReact } from "../controllers/reaction.controller"
 
 const router = express.Router();
 
-router.route('/').post(authorization, likePost);
+router.route('/').post(authorization, addReact);
 
 export default router;

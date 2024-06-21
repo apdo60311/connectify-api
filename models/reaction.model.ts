@@ -1,8 +1,8 @@
 import mongoose, { Document } from "mongoose";
-import { ILike } from "../entities/like.entity";
+import { IReaction } from "../entities/reaction.entity";
 
 
-const likeSchema = new mongoose.Schema<ILike>(
+const reactionSchema = new mongoose.Schema<IReaction>(
     {
         user: {
             type: mongoose.Schema.Types.ObjectId,
@@ -12,7 +12,12 @@ const likeSchema = new mongoose.Schema<ILike>(
         post: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Post",
-            required: true,
+            required: false,
+        },
+        comment: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Comment",
+            required: false,
         },
         type: {
             type: String,
@@ -23,6 +28,6 @@ const likeSchema = new mongoose.Schema<ILike>(
     { timestamps: true }
 );
 
-const Like = mongoose.model<ILike>("Like", likeSchema);
+const Reaction = mongoose.model<IReaction>("Reaction", reactionSchema);
 
-export default Like;
+export default Reaction;
