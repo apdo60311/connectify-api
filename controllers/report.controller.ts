@@ -3,6 +3,13 @@ import Report from "../models/report.model";
 import { errorResponse, successResponse } from "../utils/response/response.util";
 import { UserRequest } from "../entities/request.entity";
 
+/**
+ * Creates a new report in the system.
+ *
+ * @param req - The Express request object, containing the report data in the request body.
+ * @param res - The Express response object, used to send the response back to the client.
+ * @returns - A JSON response with the created report data, or an error response if the request is invalid or an error occurs.
+ */
 export const createReport = async (req: Request, res: Response) => {
     const { postId, commentId, description } = req.body;
 

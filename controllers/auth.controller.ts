@@ -5,6 +5,13 @@ import { body, validationResult } from 'express-validator';
 import generateToken from '../utils/tokenGenerator';
 import { Request, Response } from "express";
 
+/**
+ * Registers a new user in the application
+ *
+ * @param req - The Express request object .
+ * @param res - The Express response object.
+ * @returns - A response with the registered user's details or an error response.
+ */
 export const registerUser = async (req: Request, res: Response) => {
     const validationErrors = validationResult(req);
 
@@ -61,6 +68,16 @@ export const registerUser = async (req: Request, res: Response) => {
     }
 };
 
+/**
+ * Logs exisisting user in the application.
+ *
+ * @param req - The Express request object.
+ * @param res - The Express response object.
+ * @returns - A response containing the user's data and jwt token.
+ * @throws - Returns a 400 error response if the user data is invalid.
+ * @throws - Returns 401 error response if the user is not found.
+ * @throws - Returns a 500 error response if an unexpected error occurs.
+ */
 export const loginUser = async (req: Request, res: Response) => {
     try {
         const { email, password } = req.body;

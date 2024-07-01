@@ -4,20 +4,44 @@ import Report from "../models/report.model";
 import { UserRequest } from "../entities/request.entity";
 import { errorResponse, successResponse } from "../utils/response/response.util";
 
+/**
+ * Fetches all users from the database.
+ *
+ * This function can only be accessed by admin users.
+ *
+ * @param req - The Express request object.
+ * @param res - The Express response object.
+ * @returns A successful response with the fetched users, or an error response if an error occured.
+ */
 export const getUsers = async (req: Request, res: Response) => {
     if (!(req as UserRequest).user.isAdmin) {
-        return res.status(400).json(errorResponse(400, "Access denied", "unauthroized"))
+        return res
+            .status(400)
+            .json(errorResponse(400, "Access denied", "unauthroized"));
     }
 
     try {
         const users = await User.find();
-        return res.status(200).json(successResponse(200, users, "users fetched successfully"));
+        return res
+            .status(200)
+            .json(successResponse(200, users, "users fetched successfully"));
     } catch (error) {
-        return res.status(500).json(errorResponse(500, JSON.stringify(error), "Error fetching users"))
+        return res
+            .status(500)
+            .json(errorResponse(500, JSON.stringify(error), "Error fetching users"));
     }
-
 };
 
+
+/**
+ * Bans a user from the platform.
+ *
+ * This function can only be accessed by admin users.
+ *
+ * @param req - The Express request object.
+ * @param res - The Express response object.
+ * @returns A successful response indicating the user has been banned, or an error response if an error occurred.
+ */
 export const banUser = async (req: Request, res: Response) => {
     const { userId } = req.body;
 
@@ -44,7 +68,15 @@ export const banUser = async (req: Request, res: Response) => {
     }
 
 };
-
+/**
+ * Removes Ban from a user.
+ *
+ * This function can only be accessed by admin users.
+ *
+ * @param req - The Express request object.
+ * @param res - The Express response object.
+ * @returns A successful response indicating the user has been unbanned, or an error response if an error occurred.
+ */
 export const unbanUser = async (req: Request, res: Response) => {
     const { userId } = req.body;
 
@@ -70,6 +102,16 @@ export const unbanUser = async (req: Request, res: Response) => {
     }
 };
 
+
+/**
+ * Gets all reports from the database.
+ *
+ * This function can only be accessed by admin users.
+ *
+ * @param req - The Express request object.
+ * @param res - The Express response object.
+ * @returns A successful response containing the fetched reports, or an error response if an error occurred.
+ */
 export const getReports = async (req: Request, res: Response) => {
     if (!(req as UserRequest).user.isAdmin) {
         return res.status(400).json(errorResponse(400, "Access denied", "unauthroized"))
@@ -87,5 +129,7 @@ export const getReports = async (req: Request, res: Response) => {
     }
 
 };
+
+
 
 export default { getUsers, banUser, unbanUser, getReports };

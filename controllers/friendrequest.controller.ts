@@ -6,6 +6,13 @@ import { Request, Response } from "express";
 import { errorResponse, successResponse } from "../utils/response/response.util";
 import Friend from "../models/friend.model";
 
+/**
+ * send friend request to a user.
+ *
+ * @param req - The Express request object, containing the `recipientId`.
+ * @param res - The Express response object, used to send the response.
+ * @returns - A success or error response with the sent friend request.
+ */
 export const sendFriendRequest = async (req: Request, res: Response) => {
     const { recipientId } = req.body;
 
@@ -47,6 +54,14 @@ export const sendFriendRequest = async (req: Request, res: Response) => {
 
 };
 
+/**
+ * Responds to a friend request by updating the status of the request and creating a new friend relationship if the request is accepted.
+ *
+ * @param req - The Express request object, containing the `requestId` and `status` in the request body.
+ * @param res - The Express response object, used to send the response.
+ * @returns - A success or error response with the updated friend request.
+ */
+
 export const respondToFriendRequest = async (req: Request, res: Response) => {
     const { requestId, status } = req.body;
 
@@ -74,7 +89,9 @@ export const respondToFriendRequest = async (req: Request, res: Response) => {
 
         await createNotification(requesterId, 'friend_request', `${(req as UserRequest).user.name} ${status} your friend request`);
 
-        await Friend.create({ user1: recipientId, user2: userId });
+        if (status === 'accepted') {
+            await Friend.create({ user1: userId, user2: requesterId });
+        }
 
         return res.status(200).json(successResponse(200, friendRequest, "Friend request responded"));
 
@@ -82,6 +99,14 @@ export const respondToFriendRequest = async (req: Request, res: Response) => {
         return res.status(404).json(errorResponse(404, "Friend Request Error", `${error}`));
     }
 };
+
+/**
+ * Retrieves all friend requests
+ *
+ * @param req - The Express request object.
+ * @param res - The Express response object.
+ * @returns - A success or error response with the friend requests.
+ */
 
 export const getFriendRequests = async (req: Request, res: Response) => {
     const userId = (req as UserRequest).user.id;
@@ -98,6 +123,13 @@ export const getFriendRequests = async (req: Request, res: Response) => {
     }
 };
 
+/**
+ * retrieve all friends.
+ *
+ * @param req - The Express request object.
+ * @param res - The Express response object.
+ * @returns - A success or error response with the friend list.
+ */
 export const getFriendsList = async (req: Request, res: Response) => {
 
     try {
@@ -113,6 +145,14 @@ export const getFriendsList = async (req: Request, res: Response) => {
         res.status(404).json(errorResponse(404, "Friend Request Error", `${error}`))
     }
 };
+/**
+ * Unfriend a user.
+ *
+ * @param req - The Express request object
+ * @param req.body.friendId - The id of the friend to remove
+ * @param res - The Express response object, used to send the response.
+ * @returns - A success or error response with the updated friend request.
+ */
 
 export const removeFriend = async (req: Request, res: Response) => {
     const { friendId } = req.body;

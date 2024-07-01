@@ -1,6 +1,14 @@
 import { Request, Response } from "express";
 import User from "../models/user.model";
 import { errorResponse, successResponse } from "../utils/response/response.util";
+
+/**
+ * Searches for users based on the provided query parameter.
+ *
+ * @param req - The Express request object.
+ * @param res - The Express response object.
+ * @returns A JSON response with the search results or an error message.
+ */
 export const searchUsers = async (req: Request, res: Response) => {
     const { query } = req.query;
 

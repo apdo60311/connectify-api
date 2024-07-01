@@ -7,6 +7,29 @@ import {
 } from "../controllers/admin.controller";
 import { authorization } from "../middlewares/auth.middleware";
 
+/**
+ * Defines the admin routes for managing users and reports.
+ * 
+ * @route GET /admin/users
+ * @function getUsers
+ * @param {Object} req - The Express request object.
+ * @param {Object} res - The Express response object.
+ * 
+ * @route POST /admin/ban
+ * @function banUser
+ * @param {Object} req - The Express request object.
+ * @param {Object} res - The Express response object.
+ * 
+ * @route POST /admin/unban
+ * @function unbanUser
+ * @param {Object} req - The Express request object.
+ * @param {Object} res - The Express response object.
+ * 
+ * @route GET /admin/reports
+ * @function getReports
+ * @param {Object} req - The Express request object.
+ * @param {Object} res - The Express response object.
+ */
 const router = express.Router();
 
 router.route("/users").get(authorization, getUsers);

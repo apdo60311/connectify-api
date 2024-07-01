@@ -7,6 +7,15 @@ import { errorResponse, successResponse } from "../utils/response/response.util"
 import { IGroupMessage, IMessage } from "../entities/message.entity";
 import mongoose from "mongoose";
 
+/**
+ * Sends a message from the current user to another user (receiver).
+ *
+ * @param req - The Express request object
+ * @param req.body.receiverId 
+ * @param req.body.content 
+ * @param res - The Express response object.
+ * @returns - A JSON response with the sent message, or an error response if the request is incomplete or an error occurs.
+ */
 export const sendMessage = async (req: Request, res: Response) => {
     const { receiverId, content } = req.body;
 
@@ -40,6 +49,15 @@ export const sendMessage = async (req: Request, res: Response) => {
     }
 };
 
+/**
+ * Retrieves messages between the current user and the specified user.
+ * [Get the full chat]
+ * 
+ * @param req - The Express request object
+ * @param req.params.userId - The ID of the user to retrieve messages for
+ * @param res - The Express response object
+ * @returns - A JSON response with the retrieved messages, or an error response if the request is incomplete or an error occurs.
+ */
 export const getMessages = async (req: Request, res: Response) => {
     const { userId } = req.params;
 
@@ -64,6 +82,15 @@ export const getMessages = async (req: Request, res: Response) => {
     }
 };
 
+/**
+ * Marks a message as being typed by the current user.
+ *
+ * @param req - The Express request object
+ * @param req.body.messageId - The ID of the message to mark as being typed
+ * @param req.body.typing - A boolean indicating whether the user is typing or not
+ * @param res - The Express response object
+ * @returns - A JSON response with the updated message, or an error response if the request is incomplete, the message is not found, or the user is not the sender of the message.
+ */
 export const markAsTyping = async (req: Request, res: Response) => {
     const { messageId, typing } = req.body;
 
@@ -95,6 +122,15 @@ export const markAsTyping = async (req: Request, res: Response) => {
 
 };
 
+/**
+ * Creates a new group chat.
+ *
+ * @param req - The Express request object.
+ * @param req.body.name - The name of the group chat.
+ * @param req.body.members - An array of user IDs that are members of the group chat.
+ * @param res - The Express response object.
+ * @returns - A JSON response with the created group chat, or an error response if the request is incomplete or there is an error while creating the group chat.
+ */
 export const createGroupChat = async (req: Request, res: Response) => {
     const { name, members } = req.body;
 
@@ -118,6 +154,15 @@ export const createGroupChat = async (req: Request, res: Response) => {
 
 };
 
+/**
+ * Sends a message to a group chat and notify all members.
+ * 
+ * @param req - The Express request object.
+ * @param req.body.groupId - The ID of the group chat to send the message to.
+ * @param req.body.content - The content of the message to send.
+ * @param res - The Express response object.
+ * @returns - A JSON response with the created message, or an error response if the request is incomplete or there is an error while sending the message.
+ */
 export const sendGroupMessage = async (req: Request, res: Response) => {
     const { groupId, content } = req.body;
 
@@ -161,6 +206,14 @@ export const sendGroupMessage = async (req: Request, res: Response) => {
 
 };
 
+/**
+ * Retrieves the messages for a specific group chat.
+ *
+ * @param req - The Express request object.
+ * @param req.params.groupId - The ID of the group chat to retrieve the messages for.
+ * @param res - The Express response object.
+ * @returns - A JSON response with the group chat messages, or an error response if the request is incomplete or there is an error while retrieving the messages.
+ */
 export const getGroupMessages = async (req: Request, res: Response) => {
     const { groupId } = req.params;
 

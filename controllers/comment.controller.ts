@@ -5,13 +5,13 @@ import { Request, Response } from "express";
 import { errorResponse, successResponse } from "../utils/response/response.util";
 import { createNotification } from "../controllers/notification.controller";
 /**
- * handles adding new comment to a post
+ *  Adds a new comment to a post
  *
- * @param {Request} req 
- * @param {mongoose.ObjectId} req.postId - the post id to add comment to
- * @param {String} req.content
- * @param {Response} res
- * @returns {Promise<Response>} A promise that resolves with the HTTP response.
+ * @param  req 
+ * @param req.postId - the post id to add comment to
+ * @param req.content
+ * @param res
+ * @returns A promise that resolves with the HTTP response.
  */
 export const addComment = async (req: Request, res: Response) => {
     const { postId, content, parentComment } = req.body;
@@ -62,6 +62,15 @@ export const addComment = async (req: Request, res: Response) => {
 
 };
 
+/**
+ *  Updatess exisiting comment on a post
+ *
+ * @param req 
+ * @param req.commentId - the comment id to edit
+ * @param req.content
+ * @param res
+ * @returns A promise that resolves with the HTTP response.
+ */
 export const updateComment = async (req: Request, res: Response) => {
     const { commentId, content } = req.body;
 
@@ -93,6 +102,14 @@ export const updateComment = async (req: Request, res: Response) => {
 
 };
 
+/**
+ *  Deletes exisiting comment from a post
+ *
+ * @param req 
+ * @param req.commentId - the comment id to delete.
+ * @param res
+ * @returns A promise that resolves with the HTTP response.
+ */
 export const deleteComment = async (req: Request, res: Response) => {
     const { commentId } = req.body;
 

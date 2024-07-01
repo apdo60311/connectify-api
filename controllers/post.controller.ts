@@ -3,9 +3,16 @@ import Post from "../models/post.model";
 import { UserRequest } from "../entities/request.entity";
 import { errorResponse, successResponse } from "../utils/response/response.util";
 import { extractMentions } from "../utils/extractMentions.utilty";
-import { Multer } from "multer";
 import { uploadPostMediaAsRowMulterfile, uploadProfilePicAsMulterfile } from "../utils/storage.utils";
 
+/**
+ * Creates a new post with the provided content and media files.
+ *
+ * @param req - The Express request object 
+ * @param req.body.content - the post content
+ * @param res - The Express response object, used to send the created post or an error response.
+ * @returns A JSON response with the created post or an error response.
+ */
 export const createPost = async (req: Request, res: Response) => {
     const { content } = req.body;
 
@@ -44,7 +51,16 @@ export const createPost = async (req: Request, res: Response) => {
     }
 };
 
-
+/**
+ * Updates an existing post with the provided content and media files.
+ *
+ * @param req - The Express request object
+ * @param req.body.postId - the ID of the post to update
+ * @param req.body.content - the updated post content
+ * @param req.body.media - the updated post media files
+ * @param res - The Express response object, used to send the updated post or an error response.
+ * @returns A JSON response with the updated post or an error response.
+ */
 export const updatePost = async (req: Request, res: Response) => {
     const { postId, content, media } = req.body;
 
@@ -82,6 +98,14 @@ export const updatePost = async (req: Request, res: Response) => {
 
 };
 
+/**
+ * Deletes an existing post by the authenticated user.
+ *
+ * @param req - The Express request object
+ * @param req.body.postId - the ID of the post to delete
+ * @param res - The Express response object, used to send a success or error response.
+ * @returns A JSON response indicating whether the post was deleted successfully or an error response.
+ */
 export const deletePost = async (req: Request, res: Response) => {
     const { postId } = req.body;
 
@@ -111,6 +135,13 @@ export const deletePost = async (req: Request, res: Response) => {
     }
 }
 
+/**
+ * Retrieves all posts and populates the user's name.
+ *
+ * @param req - The Express request object.
+ * @param res - The Express response object, used to send the posts.
+ * @returns A JSON response containing all the posts.
+ */
 export const getPosts = async (req: Request, res: Response) => {
     const posts = await Post.find({}).populate("user", "name");
     res.json(posts);

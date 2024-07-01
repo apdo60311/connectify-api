@@ -8,6 +8,18 @@ import { UserRequest } from "../entities/request.entity";
 
 
 
+/**
+ * Middleware function that handles authorization for incoming requests.
+ *
+ * This middleware checks if the request has a valid authorization token in the
+ * `Authorization` header. If the token is valid, it extracts the user information
+ * from the token and attaches it to the `req.user` property. If the token is
+ * missing or invalid, it returns an error response.
+ *
+ * @param req - The Express request object.
+ * @param res - The Express response object.
+ * @param next - The next middleware function in the chain.
+ */
 export const authorization = async (req: Request, res: Response, next: NextFunction) => {
     let token = req.headers.authorization;
 

@@ -4,6 +4,14 @@ import { UserRequest } from "../entities/request.entity";
 import { errorResponse, successResponse } from "../utils/response/response.util";
 import { INotification } from "../entities/notification.entity";
 
+/**
+ * Creates a new notification for a specific user.
+ *
+ * @param userId - The ID of the user to send the notification.
+ * @param type - The type of the notification.
+ * @param message - The message content of the notification.
+ * @returns The created notification.
+ */
 export const createNotification = async (
     userId: string,
     type: string,
@@ -24,6 +32,13 @@ export const createNotification = async (
     }
 };
 
+/**
+ * Retrieves a list of notifications for the current user.
+ *
+ * @param req - The Express request object.
+ * @param res - The Express response object.
+ * @returns A successful response with the list of notifications for the current user.
+ */
 export const getNotifications = async (req: Request, res: Response) => {
     try {
         const notifications = await Notification.find({ user: (req as UserRequest).user.id });
@@ -34,6 +49,14 @@ export const getNotifications = async (req: Request, res: Response) => {
     }
 };
 
+/**
+ * Marks a specific notification as read for the current user.
+ *
+ * @param req - The Express request object
+ * @param req.body.notificationId 
+ * @param res - The Express response object.
+ * @returns A successful response with the updated notification, or an error response if the notification is not found or an error occurs.
+ */
 export const markAsRead = async (req: Request, res: Response) => {
     const { notificationId } = req.body;
 
@@ -57,6 +80,13 @@ export const markAsRead = async (req: Request, res: Response) => {
     }
 
 };
+/**
+ * Marks all notifications for the current user as read.
+ *
+ * @param req - The Express request object.
+ * @param res - The Express response object.
+ * @returns A successful response indicating that all notifications have been marked as read.
+ */
 export const markAllAsRead = async (req: Request, res: Response) => {
     try {
         await Notification.updateMany({ user: (req as UserRequest).user.id, read: false }, { read: true });

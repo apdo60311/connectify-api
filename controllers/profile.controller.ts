@@ -8,7 +8,13 @@ import { storage } from "../config/firbase.config"
 import { buildStorageReference, deleteFile, uploadFile, uploadFromStringFormat, uploadMulterFile, uploadProfilePicAsMulterfile } from "../utils/storage.utils"
 import mongoose from "mongoose";
 
-
+/**
+ * Retrieves the user's profile from the database.
+ *
+ * @param req - The Express request object
+ * @param res - The Express response object, used to send the profile data.
+ * @returns - A JSON response containing the user's profile data, or an error message if the profile is not found.
+ */
 export const getProfile = async (req: Request, res: Response) => {
     try {
 
@@ -28,6 +34,13 @@ export const getProfile = async (req: Request, res: Response) => {
 
 };
 
+/**
+ * Updates the user's profile in the database.
+ *
+ * @param req - The Express request object, containing the updated profile data.
+ * @param res - The Express response object, used to send the updated profile data or an error message.
+ * @returns - A JSON response containing the updated profile data, or an error message if the profile is not found or the update fails.
+ */
 export const updateProfile = async (req: Request, res: Response) => {
     const { bio, location, birthdate, interests, education, work, coverPhoto } = req.body;
 
@@ -67,6 +80,14 @@ export const updateProfile = async (req: Request, res: Response) => {
 
 };
 
+/**
+ * Creates a new user profile in the database.
+ *
+ * @param req - The Express request object, containing the new profile data.
+ * @param req.body.profileData
+ * @param res - The Express response object, used to send the saved profile data or an error message.
+ * @returns - A JSON response containing the saved profile data, or an error message if the profile creation fails.
+ */
 export const createProfile = async (req: Request, res: Response) => {
     const { bio, location, birthdate, interests, education, website, work, profilePicture } = req.body;
     const { user } = req.params;
@@ -96,6 +117,15 @@ export const createProfile = async (req: Request, res: Response) => {
 
 }
 
+/**
+ * Uploads a profile picture to the Firebase Storage and returns the download URL.
+ *
+ * @param req - The Express request object
+ * @param req.file - the profile picture file
+ * @param res - The Express response object, not used in this function.
+ * @returns - The download URL of the uploaded profile picture.
+ * @throws {Error} - If there is an error while uploading the profile picture.
+ */
 export const uploadProfilePicture = async (res: Response, req: Request) => {
 
     const profilePic = req.file;
@@ -116,6 +146,12 @@ export const uploadProfilePicture = async (res: Response, req: Request) => {
     }
 }
 
+/**
+ * Deletes the profile picture for the specified user from the Firebase Storage.
+ *
+ * @param userId - The ID of the user whose profile picture should be deleted.
+ * @throws {Error} - If there is an error while deleting the profile picture.
+ */
 export const deleteProfilePicture = async (userId: string) => {
     const ref = buildStorageReference(storage, 'profileImages', `PROFILEPIC-${userId}.png`);
     try {

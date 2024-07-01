@@ -4,6 +4,14 @@ import Friend from '../models/friend.model';
 import { successResponse, errorResponse } from '../utils/response/response.util';
 import { UserRequest } from '../entities/request.entity';
 
+/**
+ * Fetches the feed of posts for the logged in user and their friends.
+ *
+ * @param req - The Express request object.
+ * @param res - The Express response object.
+ * @returns A response containing the fetched posts, or an error response if an error occurred.
+ */
+
 export const getFeed = async (req: Request, res: Response) => {
     const page = Number(req.query.page) || 1;
     const pageSize = 10;

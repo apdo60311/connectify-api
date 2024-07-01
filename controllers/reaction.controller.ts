@@ -7,6 +7,15 @@ import { errorResponse, successResponse } from "../utils/response/response.util"
 import { UserRequest } from "../entities/request.entity";
 
 
+/**
+ * Adds or removes a reaction (like/dislike) to a post or comment.
+ *
+ * @param req - The Express request object, 
+ * @param req.body.postId 
+ * @param req.body.commentId
+ * @param res - The Express response object, which will be used to send the success or error response.
+ * @returns - A JSON response indicating whether the reaction was added or removed successfully.
+ */
 export const addReact = async (req: Request, res: Response) => {
     const { postId, commentId } = req.body;
 
