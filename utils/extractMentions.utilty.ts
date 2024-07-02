@@ -1,5 +1,11 @@
 import User from "../models/user.model";
 
+/**
+ * Extracts user mentions from the provided content string.
+ *
+ * @param content - The content string to extract mentions from.
+ * @returns An array of user IDs for the mentioned users.
+ */
 export const extractMentions = async (content: string) => {
     const mentionRegex = /@(\w+)/g;
     const mentions: string[] = [];

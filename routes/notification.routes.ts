@@ -6,6 +6,17 @@ import {
 } from "../controllers/notification.controller";
 import { authorization } from "../middlewares/auth.middleware";
 
+/**
+ * Defines the routes for handling notification-related functionality.
+ * 
+ * The following routes are defined:
+ * 
+ * - GET /: Retrieves the user's notifications.
+ * - PUT /: Marks a specific notification as read.
+ * - PUT /mark-all-read: Marks all of the user's notifications as read.
+ * 
+ * All routes require the user to be authorized using the `authorization` middleware.
+ */
 const router = express.Router();
 
 router.route("/").get(authorization, getNotifications).put(authorization, markAsRead);

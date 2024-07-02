@@ -2,6 +2,12 @@ import express from "express";
 import { createReport } from "../controllers/report.controller";
 import { authorization } from "../middlewares/auth.middleware";
 
+/**
+ * Defines a route for creating a new report.
+ *
+ * The POST /report route is protected by the `authorization` middleware, which ensures that only authenticated users can access this endpoint.
+ * When a request is made to this route, the `createReport` controller function is executed to handle the report creation logic.
+ */
 const router = express.Router();
 
 router.route("/").post(authorization, createReport);

@@ -2,17 +2,12 @@ import express from "express";
 import { registerUser, loginUser } from "../controllers/auth.controller";
 
 /**
- * Defines the routes for user authentication, including registration and login.
+ * Defines the routes for handling user authentication functionality.
  * 
- * @route POST /register
- * @function registerUser
- * @param {Object} req - The Express request object.
- * @param {Object} res - The Express response object.
+ * The following routes are defined:
  * 
- * @route POST /login
- * @function loginUser
- * @param {Object} req - The Express request object.
- * @param {Object} res - The Express response object.
+ * - POST /register: Registers a new user.
+ * - POST /login: Authenticates a user and returns a session token.
  */
 const router = express.Router();
 
