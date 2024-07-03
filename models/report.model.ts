@@ -1,7 +1,15 @@
 import mongoose from "mongoose";
 import { IReport } from "../entities/report.entity";
 
-
+/**
+ * Defines the schema for a report document in the MongoDB database.
+ * The report schema includes the following fields:
+ * - `reportedBy`: the ObjectId reference to the user who reported the content
+ * - `postId`: the ObjectId reference to the post that was reported
+ * - `commentId`: the ObjectId reference to the comment that was reported
+ * - `description`: a string field containing the description of the report
+ * The schema also includes timestamps for when the report was created and last updated.
+ */
 const reportSchema = new mongoose.Schema<IReport>(
     {
         reportedBy: {

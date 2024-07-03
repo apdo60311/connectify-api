@@ -15,8 +15,7 @@ import reportRoutes from "./routes/report.routes";
 import privacyRoutes from "./routes/privacy.routes";
 import { loggerMiddleware } from "./middlewares/logging.middleware";
 import { rateLimiterMiddleware } from "./middlewares/ratelimiter.middleware";
-
-// import errorHandler from "./middlewares/errorHandler";
+import errorHandler from "./middlewares/error.middleware";
 
 dotenv.config();
 
@@ -26,7 +25,7 @@ const app = express();
 
 app.use(express.json());
 app.use(loggerMiddleware);
-// app.use(errorHandler);
+app.use(errorHandler);
 
 app.use('/api/', rateLimiterMiddleware);
 app.use('/api/auth', authRoutes);
@@ -44,4 +43,5 @@ app.use('/api/privacy', privacyRoutes);
 
 const PORT = process.env.PORT || 5000;
 const url: string = `http://localhost:${PORT}`;
+
 app.listen(PORT, () => { console.log(`Server running on port ${PORT}`); console.log(`follow this url ${url}`); });

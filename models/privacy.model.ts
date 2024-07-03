@@ -3,6 +3,16 @@ import { IPrivacySetting } from "../entities/privacy.entity";
 
 
 
+/**
+ * Defines the schema for a PrivacySetting document in the MongoDB database.
+ * A PrivacySetting document represents the privacy settings for a specific user.
+ * The schema includes the following fields:
+ * - `user`: The ObjectId of the user that the privacy settings belong to.
+ * - `canSeePosts`: Determines who can see the user's posts, with options "everyone", "friends", or "only_me".
+ * - `canSeeProfile`: Determines who can see the user's profile, with options "everyone", "friends", or "only_me".
+ * - `canSendFriendRequest`: Determines who can send friend requests to the user, with options "everyone" or "friends_of_friends".
+ * The schema also includes timestamps for when the document was created and last updated.
+ */
 const privacySettingSchema = new mongoose.Schema<IPrivacySetting>(
     {
         user: {

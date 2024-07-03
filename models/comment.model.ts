@@ -1,6 +1,18 @@
 import mongoose, { Schema, model, Document } from "mongoose";
 import { IComment } from "../entities/comment.entity";
 
+/**
+ * Defines the schema for a comment document in the database.
+ * 
+ * The comment schema includes the following fields:
+ * - `post`: The ID of the post that the comment is associated with.
+ * - `user`: The ID of the user who made the comment.
+ * - `content`: The text content of the comment.
+ * - `parentComment`: The ID of the parent comment, if this is a reply to another comment.
+ * - `mentions`: An array of user IDs that were mentioned in the comment.
+ * 
+ * The schema also includes timestamps for when the comment was created and last updated.
+ */
 const commentSchema = new Schema<IComment>(
     {
         post: {
