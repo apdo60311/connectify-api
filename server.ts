@@ -1,21 +1,21 @@
 import express from "express";
 import dotenv from "dotenv";
-import connectDB from "./config/db";
-import authRoutes from "./routes/auth.routes";
-import postRoutes from "./routes/post.routes";
-import commentRoutes from "./routes/comment.routes";
-import friendRequestRoutes from "./routes/friendrequest.routes";
-import profileRoutes from "./routes/profile.routes";
-import notificationRoutes from "./routes/notification.routes";
-import userRoutes from "./routes/user.routes";
-import reactionsRoutes from "./routes/reaction.routes";
-import messageRoutes from "./routes/message.routes";
-import feedRoutes from "./routes/feed.routes";
-import reportRoutes from "./routes/report.routes";
-import privacyRoutes from "./routes/privacy.routes";
-import { loggerMiddleware } from "./middlewares/logging.middleware";
-import { rateLimiterMiddleware } from "./middlewares/ratelimiter.middleware";
-import errorHandler from "./middlewares/error.middleware";
+import connectDB from "./core/config/db";
+import authRoutes from "./presentation/routes/authRoutes";
+import postRoutes from "./presentation/routes/postRoutes";
+import commentRoutes from "./presentation/routes/commentRoutes";
+import friendRequestRoutes from "./presentation/routes/friendrequestRoutes";
+import profileRoutes from "./presentation/routes/profileRoutes";
+import notificationRoutes from "./presentation/routes/notificationRoutes";
+import userRoutes from "./presentation/routes/userRoutes";
+import reactionsRoutes from "./presentation/routes/reactionRoutes";
+import messageRoutes from "./presentation/routes/messageRoutes";
+import feedRoutes from "./presentation/routes/feedRoutes";
+import reportRoutes from "./presentation/routes/reportRoutes";
+import privacyRoutes from "./presentation/routes/privacyRoutes";
+import { loggerMiddleware } from "./middlewares/loggingMiddleware";
+import { rateLimiterMiddleware } from "./middlewares/ratelimiterMiddleware";
+import errorHandler from "./middlewares/errorMiddleware";
 
 dotenv.config();
 
